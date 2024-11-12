@@ -5,9 +5,14 @@ using System.Threading.Tasks;
 public class cube_movement : MonoBehaviour
 {
     [SerializeField]
+    GameObject floor;
+    [SerializeField]
     float speed = 5f;
     private Rigidbody rb;
-
+    [SerializeField]
+    float power = 5f;
+    private bool isGrounded;
+    
 
     private void Start()
     {
@@ -38,9 +43,24 @@ public class cube_movement : MonoBehaviour
 
         }
 
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        {
+           
+            rb.AddForce(Vector3.up * power, ForceMode.Impulse);
+            isGrounded = false; 
+        }
 
 
 
+
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+           
+            isGrounded =true;
+        }
     }
 
 
