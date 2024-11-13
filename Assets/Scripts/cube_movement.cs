@@ -12,7 +12,12 @@ public class cube_movement : MonoBehaviour
     [SerializeField]
     float power = 5f;
     private bool isGrounded;
-    
+    public float maxJumpForce = 5f;
+    public float chargeRate = 2f;
+
+    private float jumpCharge = 0f;
+    private bool isCharging = false;
+
 
     private void Start()
     {
@@ -45,9 +50,24 @@ public class cube_movement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
-           
-            rb.AddForce(Vector3.up * power, ForceMode.Impulse);
-            isGrounded = false; 
+            isGrounded = false;
+           isCharging = true;
+           jumpCharge = 0f;
+            //rb.AddForce(Vector3.up * power, ForceMode.Impulse);
+            //isGrounded = false; 
+        }
+
+        if (isCharging)
+        {
+            jumpCharge += chargeRate * Time.deltaTime;
+            jumpCharge = Mathf.Clamp(jumpCharge, 0, maxJumpForce); // ograniczenie do maksymalnej sily
+            Debug.Log(jumpCharge);
+        }
+
+        if(Input.GetKeyUp(KeyCode.Space) && isCharging)
+        {
+            rb.AddForce(Vector3.up * jumpCharge, ForceMode.Impulse);
+            isCharging = false;
         }
 
 
