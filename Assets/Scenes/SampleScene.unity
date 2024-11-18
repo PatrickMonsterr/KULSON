@@ -3111,7 +3111,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floor: {fileID: 0}
-  speed: 7
+  speed: 2500
   power: 45
   maxJumpForce: 45
   chargeRate: 45
