@@ -8,7 +8,7 @@ public class cube_movement : MonoBehaviour
     GameObject floor;
     [SerializeField]
     float speed = 5f;
-    private Rigidbody rb;
+    public Rigidbody rb;
     [SerializeField]
     float power = 5f;
     private bool isGrounded;
