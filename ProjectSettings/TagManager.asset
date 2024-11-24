@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Ground
   - Kula
+  - Slide
   layers:
   - Default
   - TransparentFX

@@ -1,16 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Threading.Tasks;
+using System;
 
 public class cube_movement : MonoBehaviour
 {
+    public Leaf_jump_real jump;
     [SerializeField]
     GameObject floor;
     [SerializeField]
     float speed = 5f;
+    [NonSerialized]
     public Rigidbody rb;
-    [SerializeField]
-    float power = 5f;
     private bool isGrounded;
     public float maxJumpForce = 5f;
     public float chargeRate = 2f;
@@ -21,6 +22,7 @@ public class cube_movement : MonoBehaviour
 
     private void Start()
     {
+        Debug.Log(jump);
         rb = GetComponent<Rigidbody>();
         
     }
@@ -80,6 +82,12 @@ public class cube_movement : MonoBehaviour
         {
            
             isGrounded =true;
+
+           jump.ResetOdbicie();
+        }
+        if (collision.gameObject.CompareTag("Slide"))
+        {
+            jump.ResetOdbicie();
         }
     }
 
