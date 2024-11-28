@@ -27,26 +27,15 @@ public class explosion : MonoBehaviour
             if (rb != null)
             {
                 rb.isKinematic = false;
-                Vector3 explosionDirection = rb.transform.position - transform.position;
+                
 
 
-                // rb.AddExplosionForce(explosionForce, transform.position, explosionRadius, upwardsModifier);
+                
             }
         }
         gameObject.GetComponent<Collider>().enabled = false;
 
-        // foreach (Transform el in children)
-        // {
-        //     Destroy(el.gameObject);
 
-
-        // }
-        // for (int i = 1; i < children.Length; i++)
-        // {
-        //     Destroy(children[i].gameObject);
-        //     StartCoroutine(WaitAndPrint());
-        //     Debug.Log("TY KURWO");
-        // }
         StartCoroutine(WaitAndPrint());
 
 
@@ -60,7 +49,7 @@ public class explosion : MonoBehaviour
 {
     Transform[] children = GetComponentsInChildren<Transform>();
     Debug.Log("3 sekundy minęły!");
-    // Wstrzymaj na 3 sekundy
+
     yield return new WaitForSeconds(3f);
     for (int i = 1; i < children.Length; i++)
         {
@@ -68,9 +57,9 @@ public class explosion : MonoBehaviour
             yield return new WaitForSeconds(0.05f);
             Debug.Log("TY KURWO");
         }
-      // Czas oczekiwania 3 sekundy
+      
 
-    // Po upływie 3 sekund wykonaj akcję
+   
     Debug.Log("Akcja po 3 sekundach.");
 }
 
