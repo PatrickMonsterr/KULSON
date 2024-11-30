@@ -15,7 +15,7 @@ public class Leaf_jump_real : MonoBehaviour
             bump.SetTrigger("Bump");
         }
     }
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Kula"))
         {
@@ -34,12 +34,15 @@ public class Leaf_jump_real : MonoBehaviour
     }
     private void OnCollisionEnter(Collision other)
     {
+
         if (other.gameObject.CompareTag("Kula"))
         {
+             bump.SetTrigger("Bump");
+
             kula_move.rb.AddForce(Vector3.up * odbicie, ForceMode.Impulse);
 
 
-            if (odbicie < 40)
+            if (odbicie < 60)
             {
                 odbicie += 20f;
             }
