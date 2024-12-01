@@ -5,8 +5,8 @@ using System;
 
 public class cube_movement : MonoBehaviour
 {
-    public Leaf_jump_real jump;
     [SerializeField]
+    public Leaf_jump_real jump;
     GameObject floor;
     [SerializeField]
     float speed = 5f;
@@ -24,20 +24,20 @@ public class cube_movement : MonoBehaviour
     {
         Debug.Log(jump);
         rb = GetComponent<Rigidbody>();
-        
+
     }
 
     private void Update()
     {
 
-        if (Input.GetAxis("Horizontal") > 0) 
+        if (Input.GetAxis("Horizontal") > 0)
         {
             rb.AddForce(Vector3.right * speed * Time.deltaTime);
         }
         else if (Input.GetAxis("Horizontal") < 0)
         {
             rb.AddForce(-Vector3.right * speed * Time.deltaTime);
-                
+
         }
 
         if (Input.GetAxis("Vertical") > 0)
@@ -53,8 +53,8 @@ public class cube_movement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
             isGrounded = false;
-           isCharging = true;
-           jumpCharge = 0f;
+            isCharging = true;
+            jumpCharge = 0f;
             //rb.AddForce(Vector3.up * power, ForceMode.Impulse);
             //isGrounded = false; 
         }
@@ -66,7 +66,7 @@ public class cube_movement : MonoBehaviour
             Debug.Log(jumpCharge);
         }
 
-        if(Input.GetKeyUp(KeyCode.Space) && isCharging)
+        if (Input.GetKeyUp(KeyCode.Space) && isCharging)
         {
             rb.AddForce(Vector3.up * jumpCharge, ForceMode.Impulse);
             isCharging = false;
@@ -80,15 +80,15 @@ public class cube_movement : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Ground"))
         {
-           
-            isGrounded =true;
 
-           jump.ResetOdbicie();
-        }
-        if (collision.gameObject.CompareTag("Slide"))
-        {
+            isGrounded = true;
+
             jump.ResetOdbicie();
         }
+        // if (collision.gameObject.CompareTag("Slide"))
+        // {
+        //     jump.ResetOdbicie();
+        // }
     }
 
 
