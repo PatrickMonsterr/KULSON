@@ -3,8 +3,9 @@ using UnityEngine;
 
 public class castle_jump : MonoBehaviour
 {
-    [SerializeField]
-    public GameObject wall1;
+   
+     [SerializeField]
+    public GameObject wall3;
     void Start()
     {
         
@@ -20,7 +21,8 @@ public class castle_jump : MonoBehaviour
         if(other.gameObject.CompareTag("Kula"))
         {
             
-            Destroy(wall1);
+         
+            Destroy(wall3);
             
         }
     }
