@@ -8,7 +8,7 @@ public class pipe_boost : MonoBehaviour
    {
     if(collision.gameObject.CompareTag("Kula"))
     {
-        kula.rb.AddForce(Vector3.up * 110, ForceMode.Impulse);
+        kula.rb.AddForce(Vector3.up * 60, ForceMode.Impulse);
     }
    }
 }
