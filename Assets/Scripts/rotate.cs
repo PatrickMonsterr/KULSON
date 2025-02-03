@@ -1,32 +1,46 @@
+﻿using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class rotate : MonoBehaviour
 {
     public GameObject sword;
-    public Animator animacja;
     public Animator animator;
     [SerializeField]
     float rotationSpeed = 50f;
-    
-    
+    public Rigidbody gracz;
+    public GameObject king;
+
+
     void Start()
     {
-       animacja.enabled = false;    
+        animator.enabled = false;
     }
 
-    
+
     void Update()
     {
         //Debug.Log($"Y: {Y}");
-        sword.transform.Rotate(0, 0, rotationSpeed * Time.deltaTime);
+        //sword.transform.Rotate(0, 0, rotationSpeed * Time.deltaTime);
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("Kula"))
+        if (other.CompareTag("Kula") && (Input.GetKeyDown(KeyCode.F)))
         {
-            animacja.enabled=true;
+            Debug.Log("dziala");
+            animator.enabled = true;
             animator.SetTrigger("dotyk");
+            gracz.isKinematic = true;
+
+
         }
+
     }
+
+
+
+    
 }
+    
+

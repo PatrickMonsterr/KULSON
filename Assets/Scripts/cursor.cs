@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class cursor : MonoBehaviour
 {
@@ -9,9 +10,15 @@ public class cursor : MonoBehaviour
     [SerializeField]
     public TextMeshProUGUI Settings;
     [SerializeField]
-    public TextMeshProUGUI Credits;
-    [SerializeField]
     public TextMeshProUGUI Quit;
+    [SerializeField]
+    public Canvas settingsy;
+    public Canvas menu;
+    public TextMeshProUGUI Back;
+    public AudioSource muzykaMenu;
+
+    public Slider MusicSlider;
+    public Slider SoundEffectsSlider;
 
     public Texture2D cursorTexture;
     public Vector2 hotspot = Vector2.zero;
@@ -21,6 +28,7 @@ public class cursor : MonoBehaviour
     void Start()
     {
         Cursor.SetCursor(cursorTexture, hotspot, CursorMode.Auto);
+        LoadSound();
     }
 
     void Update()
@@ -46,18 +54,9 @@ public class cursor : MonoBehaviour
     }
 
 
-    //CREDITS
+ 
 
-    public void HoverOnCredits()
-    {
-        Credits.color = hoverColor;
-    }
-
-    public void HoverOffCredits()
-    {
-        Credits.color = defaultColor;
-    }
-
+    
     //QUIT
 
     public void HoverOnQuit()
@@ -69,4 +68,69 @@ public class cursor : MonoBehaviour
     {
         Quit.color = defaultColor;
     }
+    public void HoverOnSettings()
+    {
+        Settings.color = hoverColor;
+    }
+
+    public void HoverOffSettings()
+    {
+        Settings.color = defaultColor;
+    }
+
+    public void Settings_button()
+    {
+        menu.enabled = false;
+        settingsy.enabled = true;
+    }
+    public void HoverOnBack()
+    {
+        Back.color = hoverColor;
+    }
+
+    public void HoverOffBack()
+    {
+        Back.color = defaultColor;
+    }
+    public void BackButton()
+    {
+        settingsy.enabled = false;
+        menu.enabled = true;
+    }
+
+
+    //SOUND MANAGER
+    public void SaveSound()
+    {
+        PlayerPrefs.SetFloat("Music", MusicSlider.value);
+        PlayerPrefs.SetFloat("SoundEffects", SoundEffectsSlider.value);
+        PlayerPrefs.Save();
+        LoadSound();
+        Debug.Log("zapis udany");
+    }
+
+
+    public void LoadSound()
+    {
+        if (PlayerPrefs.HasKey("Music")) 
+        {
+            float music = PlayerPrefs.GetFloat("Music");
+            float soundEffects = PlayerPrefs.GetFloat("SoundEffects");
+
+            MusicSlider.value = music;
+            SoundEffectsSlider.value = soundEffects;
+
+            muzykaMenu.volume = music;
+
+        }
+        else
+        {
+            MusicSlider.value = 1f;
+            SoundEffectsSlider.value = 1f;
+        }
+    }
+
+
+
+
 }
