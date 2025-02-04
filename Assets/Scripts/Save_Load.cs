@@ -28,9 +28,10 @@ public class Save_Load : MonoBehaviour
     {
         if (PlayerPrefs.HasKey("X")) // Sprawdza, czy istnieje zapis
         {
-            float x = PlayerPrefs.GetFloat("PlayerX");
-            float y = PlayerPrefs.GetFloat("PlayerY");
-            float z = PlayerPrefs.GetFloat("PlayerZ");
+            Debug.Log("zaczyna sie wczytywanie");
+            float x = PlayerPrefs.GetFloat("X");
+            float y = PlayerPrefs.GetFloat("Y");
+            float z = PlayerPrefs.GetFloat("Z");
 
             player.position = new Vector3(x, y, z);
         }

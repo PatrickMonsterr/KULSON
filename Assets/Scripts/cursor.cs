@@ -1,3 +1,4 @@
+﻿using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -8,6 +9,8 @@ public class cursor : MonoBehaviour
     [SerializeField]
     public TextMeshProUGUI NewGamee;
     [SerializeField]
+    public TextMeshProUGUI Continue;
+    [SerializeField]
     public TextMeshProUGUI Settings;
     [SerializeField]
     public TextMeshProUGUI Quit;
@@ -16,6 +19,8 @@ public class cursor : MonoBehaviour
     public Canvas menu;
     public TextMeshProUGUI Back;
     public AudioSource muzykaMenu;
+    //public Save_Load save_load;
+    private Transform PlayerTr;
 
     public Slider MusicSlider;
     public Slider SoundEffectsSlider;
@@ -31,6 +36,7 @@ public class cursor : MonoBehaviour
         menu.enabled = true;
         Cursor.SetCursor(cursorTexture, hotspot, CursorMode.Auto);
         LoadSound();
+        DontDestroyOnLoad(this);
     }
 
     void Update()
@@ -38,10 +44,18 @@ public class cursor : MonoBehaviour
         
     }
 
+    public void Continuee() 
+    {
+        StartCoroutine(LoadGameWithDelay());
+
+    }
+
+
     public void NewGame()
     {
         SceneManager.LoadSceneAsync("WSTEP");
     }
+
 
     //NEW GAME
 
@@ -55,10 +69,20 @@ public class cursor : MonoBehaviour
         NewGamee.color = defaultColor;
     }
 
+    public void HoverOnContinue()
+    {
+        Continue.color = hoverColor;
+    }
 
- 
+    public void HoverOffContinue()
+    {
+        Continue.color = defaultColor;
+    }
 
-    
+
+
+
+
     //QUIT
 
     public void HoverOnQuit()
@@ -129,6 +153,38 @@ public class cursor : MonoBehaviour
         {
             MusicSlider.value = 1f;
             SoundEffectsSlider.value = 1f;
+        }
+    }
+
+    public void LoadGame()
+    {
+        if (PlayerPrefs.HasKey("X")) 
+        {
+            Debug.Log("zaczyna sie wczytywanie");
+            float x = PlayerPrefs.GetFloat("X");
+            float y = PlayerPrefs.GetFloat("Y");
+            float z = PlayerPrefs.GetFloat("Z");
+
+            PlayerTr.position = new Vector3(x, y, z);
+        }
+
+    }
+
+    IEnumerator LoadGameWithDelay()
+    {
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("GRA");
+        yield return new WaitUntil(() => asyncLoad.isDone); 
+
+        GameObject player = GameObject.Find("Kula");
+
+        if (player != null)
+        {
+            PlayerTr = player.GetComponent<Transform>();
+            LoadGame();
+        }
+        else
+        {
+            Debug.LogError("Błąd: Obiekt 'Kula' nie został znaleziony w nowej scenie!");
         }
     }
 
