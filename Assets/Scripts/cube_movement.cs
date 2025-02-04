@@ -12,12 +12,14 @@ public class cube_movement : MonoBehaviour
     float speed = 5f;
     [NonSerialized]
     public Rigidbody rb;
-    private bool isGrounded;
+    public bool isGrounded;
     public float maxJumpForce = 5f;
     public float chargeRate = 2f;
 
     private float jumpCharge = 0f;
     private bool isCharging = false;
+
+
 
 
     private void Start()

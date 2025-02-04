@@ -27,6 +27,8 @@ public class cursor : MonoBehaviour
 
     void Start()
     {
+        settingsy.enabled = false;
+        menu.enabled = true;
         Cursor.SetCursor(cursorTexture, hotspot, CursorMode.Auto);
         LoadSound();
     }

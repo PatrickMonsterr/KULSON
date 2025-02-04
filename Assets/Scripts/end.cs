@@ -17,6 +17,7 @@ public class end : MonoBehaviour
         if (crown_collected) 
         {
             StartCoroutine(toOutro());
+            crown_collected=false;
         }
     }
 

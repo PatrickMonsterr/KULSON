@@ -10,6 +10,7 @@ public class krew : MonoBehaviour
     public Transform mieczT;
     public Animator animator;
     public GameObject mieczGO;
+    public AudioSource swordStab;
     
     
     void Start()
@@ -28,6 +29,7 @@ public class krew : MonoBehaviour
         {
            Debug.Log("kolizja dziala");
            kreww.Play();
+           swordStab.Play();
             StartCoroutine(king_dissapear());
             
            
