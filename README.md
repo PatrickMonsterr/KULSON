@@ -19,7 +19,7 @@ Game have only one save, after leaving the dungeon
 
 ## Installation
 
-1. Download the latest release
+1. Download the latest [release](https://github.com/PatrickMonsterr/PROJECT-KULSON/releases/tag/1.0)
 2. Extract the folder from the archive
 3. Run KULSON.exe
 
