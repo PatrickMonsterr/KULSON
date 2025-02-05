@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 public class presstokill : MonoBehaviour
 {
     public TextMeshProUGUI kingKill;
+    public GameObject collider;
 
     
     void Start()
@@ -27,6 +28,7 @@ public class presstokill : MonoBehaviour
         if (collision.gameObject.CompareTag("Kula") && Input.GetKeyDown(KeyCode.F))
         {
             Destroy(kingKill);
+            Destroy(collider);
         }
 
     }

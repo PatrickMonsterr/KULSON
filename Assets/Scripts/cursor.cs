@@ -19,8 +19,6 @@ public class cursor : MonoBehaviour
     public Canvas menu;
     public TextMeshProUGUI Back;
     public AudioSource muzykaMenu;
-    //public Save_Load save_load;
-    private Transform PlayerTr;
 
     public Slider MusicSlider;
     public Slider SoundEffectsSlider;
@@ -30,78 +28,34 @@ public class cursor : MonoBehaviour
     private Color defaultColor = Color.white;
     private Color hoverColor = Color.grey;
 
-    void Start()
+    private Transform PlayerTr;
+
+    void Awake()
     {
         settingsy.enabled = false;
         menu.enabled = true;
         Cursor.SetCursor(cursorTexture, hotspot, CursorMode.Auto);
         LoadSound();
-        DontDestroyOnLoad(this);
+        DontDestroyOnLoad(gameObject);
     }
 
-    void Update()
-    {
-        
-    }
+    //void Start()
+    //{
+    //    settingsy.enabled = false;
+    //    menu.enabled = true;
+    //    Cursor.SetCursor(cursorTexture, hotspot, CursorMode.Auto);
+    //    LoadSound();
+    //    DontDestroyOnLoad(gameObject);
+    //}
 
-    public void Continuee() 
+    public void Continuee()
     {
         StartCoroutine(LoadGameWithDelay());
-
     }
-
 
     public void NewGame()
     {
         SceneManager.LoadSceneAsync("WSTEP");
-    }
-
-
-    //NEW GAME
-
-    public void HoverOn()
-    {
-        NewGamee.color = hoverColor;
-    }
-
-    public void HoverOff()
-    {
-        NewGamee.color = defaultColor;
-    }
-
-    public void HoverOnContinue()
-    {
-        Continue.color = hoverColor;
-    }
-
-    public void HoverOffContinue()
-    {
-        Continue.color = defaultColor;
-    }
-
-
-
-
-
-    //QUIT
-
-    public void HoverOnQuit()
-    {
-        Quit.color = hoverColor;
-    }
-
-    public void HoverOffQuit()
-    {
-        Quit.color = defaultColor;
-    }
-    public void HoverOnSettings()
-    {
-        Settings.color = hoverColor;
-    }
-
-    public void HoverOffSettings()
-    {
-        Settings.color = defaultColor;
     }
 
     public void Settings_button()
@@ -109,36 +63,29 @@ public class cursor : MonoBehaviour
         menu.enabled = false;
         settingsy.enabled = true;
     }
-    public void HoverOnBack()
-    {
-        Back.color = hoverColor;
-    }
 
-    public void HoverOffBack()
-    {
-        Back.color = defaultColor;
-    }
     public void BackButton()
     {
         settingsy.enabled = false;
         menu.enabled = true;
     }
 
+    public void QuitButton()
+    {
+        Application.Quit(); 
+    }
 
-    //SOUND MANAGER
     public void SaveSound()
     {
         PlayerPrefs.SetFloat("Music", MusicSlider.value);
         PlayerPrefs.SetFloat("SoundEffects", SoundEffectsSlider.value);
         PlayerPrefs.Save();
         LoadSound();
-        Debug.Log("zapis udany");
     }
-
 
     public void LoadSound()
     {
-        if (PlayerPrefs.HasKey("Music")) 
+        if (PlayerPrefs.HasKey("Music"))
         {
             float music = PlayerPrefs.GetFloat("Music");
             float soundEffects = PlayerPrefs.GetFloat("SoundEffects");
@@ -147,7 +94,6 @@ public class cursor : MonoBehaviour
             SoundEffectsSlider.value = soundEffects;
 
             muzykaMenu.volume = music;
-
         }
         else
         {
@@ -158,28 +104,39 @@ public class cursor : MonoBehaviour
 
     public void LoadGame()
     {
-        if (PlayerPrefs.HasKey("X")) 
+        if (PlayerPrefs.HasKey("X"))
         {
-            Debug.Log("zaczyna sie wczytywanie");
             float x = PlayerPrefs.GetFloat("X");
             float y = PlayerPrefs.GetFloat("Y");
             float z = PlayerPrefs.GetFloat("Z");
 
-            PlayerTr.position = new Vector3(x, y, z);
+            if (PlayerTr != null)
+            {
+                PlayerTr.position = new Vector3(x, y, z);
+                Debug.Log($"Pozycja gracza załadowana: {x}, {y}, {z}");
+            }
+            else
+            {
+                Debug.LogError("Błąd: Transform gracza nie został znaleziony!");
+            }
         }
-
+        else
+        {
+            Debug.LogWarning("Brak zapisanej pozycji gracza w PlayerPrefs.");
+        }
     }
 
     IEnumerator LoadGameWithDelay()
     {
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("GRA");
-        yield return new WaitUntil(() => asyncLoad.isDone); 
+        yield return new WaitUntil(() => asyncLoad.isDone);
 
         GameObject player = GameObject.Find("Kula");
 
         if (player != null)
         {
-            PlayerTr = player.GetComponent<Transform>();
+            PlayerTr = player.transform;
+            Debug.Log("Znaleziono obiekt 'Kula', wczytywanie pozycji...");
             LoadGame();
         }
         else
@@ -187,8 +144,5 @@ public class cursor : MonoBehaviour
             Debug.LogError("Błąd: Obiekt 'Kula' nie został znaleziony w nowej scenie!");
         }
     }
-
-
-
 
 }

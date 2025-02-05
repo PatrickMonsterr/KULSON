@@ -1,5 +1,4 @@
 using System.Collections;
-using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -19,6 +18,8 @@ public class end : MonoBehaviour
             StartCoroutine(toOutro());
             crown_collected=false;
         }
+
+        Debug.Log($"Crown Collected: {crown_collected}");
     }
 
 
